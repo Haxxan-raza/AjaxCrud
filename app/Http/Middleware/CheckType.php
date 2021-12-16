@@ -19,11 +19,10 @@ class CheckType
     {
         $role = Auth::check() ? Auth::user() : null;
         if($role->type == 2) {
-            return redirect('/dashborad');
-          
+            return $next($request);
         }
+        return redirect()->route('home');
         
-        return $next($request);
     }
    
     

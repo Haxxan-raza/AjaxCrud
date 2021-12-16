@@ -98,8 +98,9 @@
           $('#post_id').val(data.id);
           $('#title').val(data.title);
           $('#body').val(data.body);  
-      })
+      });
    });
+
     $('body').on('click', '#delete-post', function (e) {
         
         if(!confirm("Do you really want to do this?")) {
@@ -107,12 +108,12 @@
      }
 
     e.preventDefault();
-    var id = $(this).data("id");
+    // var id = $(this).data("id");
     var post_id = $(this).data("id");
     // var id = $(this).attr('data-id');
     var token = $("meta[name='csrf-token']").attr("content");
     var url = e.target;
- 
+    
         
         $.ajax({
             type: "DELETE",
@@ -126,7 +127,7 @@
             }
         });
     });   
-  });
+});
  
  if ($("#postForm").length > 0) {
       $("#postForm").validate({
@@ -163,7 +164,7 @@
           }
       });
     }
-  })
+  });
 }
    
   

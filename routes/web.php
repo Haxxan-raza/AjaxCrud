@@ -25,11 +25,12 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('type');
-    Route::get('/dashboard',[App\Http\Controllers\AjaxPostController::class,'index'])->name('dashboard');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard',[App\Http\Controllers\AjaxPostController::class,'index'])->name('dashboard')->middleware('type');
     Route::post('/store',[App\Http\Controllers\AjaxPostController::class,'store'])->name('store');
     Route::post('/edit/{id}',[App\Http\Controllers\AjaxPostController::class,'edit'])->name('edit');
     Route::delete('/delete/{id}',[App\Http\Controllers\AjaxPostController::class,'destroy'])->name('delete');
   
 });
+
 

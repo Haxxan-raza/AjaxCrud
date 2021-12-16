@@ -5,8 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
 use Redirect,Response;
-use App\Http\Middleware\CheckType;
-
 use Illuminate\Http\Request;
 
 class AjaxPostController extends Controller
@@ -18,7 +16,8 @@ class AjaxPostController extends Controller
      */
     public function index()
     {
-        $data['posts'] = Post::orderBy('id','desc')->paginate(8);   
+        $data['posts'] = Post::orderBy('id','desc')->paginate(8);
+   
         return view('index',$data);
     }
 
@@ -40,12 +39,13 @@ class AjaxPostController extends Controller
      */
     public function store(Request $request)
     {
-        $postID  = $request->post_id;
-        $post    =   Post::updateOrCreate([
-            'id'    => $postID,
-            'title' => $request->title,
-            'body'  => $request->body
-        ]);    
+        $postID = $request->post_id;
+        $post   =   Post::updateOrCreate(
+                    ['id' => $postID],
+                    ['title' => $request->title, 
+                    'body' => $request->body
+                       ]);
+    
         return Response::json($post);
     }
 
@@ -69,7 +69,7 @@ class AjaxPostController extends Controller
     public function edit($id)
     {
         $where = array('id' => $id);
-        $post  = Post::where($where)->first(); 
+        $post  = Post::where($where)->first();
         return Response::json($post);
     }
 
@@ -93,7 +93,7 @@ class AjaxPostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::where('id',$id)->delete();   
-        return Response::json($post);
+        $post = Post::where('id',$id)->delete();
+          return Response::json($post);
     }
 }
