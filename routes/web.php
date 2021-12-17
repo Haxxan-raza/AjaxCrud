@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AjaxPostController;
+use App\Http\Controllers\Auth\AdminLoginController;
 use App\Models\Post;
 use App\Http\Middleware\CheckType;
 
@@ -32,5 +34,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('/delete/{id}',[App\Http\Controllers\AjaxPostController::class,'destroy'])->name('delete');
   
 });
+Route::get('/admin', [AdminController::class,'index'])->name('admin');
 
+Route::prefix('admin')->group(function() {
+Route::get('login',[Auth\AdminLoginController::class,'showLoginForm']);
+Route::post('login',[Auth\AdminLoginController::class,'login'])->name('admin-login');
+});
 
