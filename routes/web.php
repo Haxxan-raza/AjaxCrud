@@ -6,6 +6,7 @@ use App\Http\Controllers\AjaxPostController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Models\Post;
 use App\Http\Middleware\CheckType;
+use App\Http\Controllers\Auth\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,16 @@ use App\Http\Middleware\CheckType;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::resource('/dashboard', 'AjaxPostController');
 
+//important debughing database query
+// DB::listen(function ($q) {
+//     echo $q->sql;
+// });
 
 Auth::routes(['verify' => true]);
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -33,11 +40,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/edit/{id}',[App\Http\Controllers\AjaxPostController::class,'edit'])->name('edit');
     Route::delete('/delete/{id}',[App\Http\Controllers\AjaxPostController::class,'destroy'])->name('delete');
   
+   
 });
+
 Route::get('/admin', [AdminController::class,'index'])->name('admin');
 
 Route::prefix('admin')->group(function() {
-Route::get('login',[Auth\AdminLoginController::class,'showLoginForm']);
-Route::post('login',[Auth\AdminLoginController::class,'login'])->name('admin-login');
+Route::get('login',[App\Http\Controllers\Auth\AdminLoginController::class,'showLoginForm']);
+Route::post('login',[App\Http\Controllers\Auth\AdminLoginController::class,'login'])->name('admin-login');
 });
 

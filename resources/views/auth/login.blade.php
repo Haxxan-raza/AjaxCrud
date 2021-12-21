@@ -50,6 +50,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+               <div class="col-xs-12 col-sm-12 col-md-6">
+                  <div class="form-group">
+                     <strong>Recaptcha:</strong>                  
+                     {!! NoCaptcha::renderJs() !!}
+                     {!! NoCaptcha::display() !!}
+                  </div>
+               </div>
+            </div>
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
@@ -62,6 +71,9 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                                <a href="{{ url('auth/google') }}" class="btn btn-danger">
+                                    {{ __('Login with Google') }}
+                                </a>
                             </div>
                         </div>
                     </form>

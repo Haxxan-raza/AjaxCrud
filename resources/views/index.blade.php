@@ -9,11 +9,19 @@
 <div class="container">
     
     <div class="row">
-        <div class="col-12">
+    
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+      <label style="margin-left: 10px;">Select Mode</label>
+    </div><br> 
+        <div class="col-12" >
           <a href="javascript:void(0)" class="btn btn-success mb-2" id="create-new-post">Add post</a> 
           
           <table class="table table-bordered" id="laravel_crud">
-           <thead>
+           <thead style="color: burlywood">
               <tr>
                  <th>Id</th>
                  <th>Name</th>
@@ -21,11 +29,11 @@
                  <td colspan="2">Action</td>
               </tr>
            </thead>
-           <tbody id="posts-crud">
+           <tbody id="posts-crud" style="color:blue">
               @foreach($posts as $post)
               <tr id="post_id_{{ $post->id }}">
     
-                 <td>{{ $post->id  }}</td>
+                 <td >{{ $post->id  }}</td>
                  <td>{{ $post->title }}</td>
                  <td>{{ $post->body }}</td>
                  <td><a href="javascript:void(0)" id="edit-post" data-id="{{ $post->id }}" class="btn btn-info ">Edit</a></td>
@@ -46,9 +54,9 @@
         <h4 class="modal-title" id="postCrudModal"></h4>
     </div>
     <div class="modal-body">
-        <form id="postForm" name="postForm" class="form-horizontal">
+        <form id="postForm" name="postForm" class="form-horizontal" style="color: blue">
            <input type="hidden" name="post_id" id="post_id">
-            <div class="form-group">
+            <div class="form-group" >
                 <label for="name" class="col-sm-2 control-label">Title</label>
                 <div class="col-sm-12">
                     <input type="text" class="form-control" id="title" name="title" value="" required="">
