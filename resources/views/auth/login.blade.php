@@ -51,8 +51,8 @@
                             </div>
                         </div>
                         <div class="row">
-               <div class="col-xs-12 col-sm-12 col-md-6">
-                  <div class="form-group">
+               <div class="col-xs-12 col-sm-12 col-md-6" style="margin-left:33%">
+                  <div class="form-group" >
                      <strong>Recaptcha:</strong>                  
                      {!! NoCaptcha::renderJs() !!}
                      {!! NoCaptcha::display() !!}

@@ -18,8 +18,8 @@
       <label style="margin-left: 10px;">Select Mode</label>
     </div><br> 
         <div class="col-12" >
-          <a href="javascript:void(0)" class="btn btn-success mb-2" id="create-new-post">Add post</a> 
-          
+          <a href="javascript:void(0)" class="btn btn-success " id="create-new-post">Add post</a> 
+          <input id="myInput" type="text" placeholder="Search.." style="margin-left: 67%">
           <table class="table table-bordered" id="laravel_crud">
            <thead style="color: burlywood">
               <tr>
@@ -33,7 +33,7 @@
               @foreach($posts as $post)
               <tr id="post_id_{{ $post->id }}">
     
-                 <td >{{ $post->id  }}</td>
+                <td>{{ $loop->iteration }}</td>
                  <td>{{ $post->title }}</td>
                  <td>{{ $post->body }}</td>
                  <td><a href="javascript:void(0)" id="edit-post" data-id="{{ $post->id }}" class="btn btn-info ">Edit</a></td>
@@ -41,6 +41,7 @@
                   <a href="javascript:void(0)" id="delete-post" data-id="{{ $post->id }}" class="btn btn-danger delete-post">Delete</a></td>
               </tr>
               @endforeach
+              
            </tbody>
           </table>
           
@@ -51,7 +52,7 @@
 <div class="modal-dialog">
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title" id="postCrudModal"></h4>
+        <h4 class="modal-title" style="color: burlywood" id="postCrudModal"></h4>
     </div>
     <div class="modal-body">
         <form id="postForm" name="postForm" class="form-horizontal" style="color: blue">
@@ -174,7 +175,33 @@
     }
   });
 }
-   
+
+
   
 </script>
+<script>
+$(document).ready(function(){
+
+$(document).on('click', '.page-link', function(event){
+   event.preventDefault(); 
+   var page = $(this).attr('href').split('page=')[1];
+   fetch_data(page);
+});
+
+function fetch_data(page)
+{
+ var _token = $("input[name=_token]").val();
+ $.ajax({
+     url:"{{ route('pagination.fetch') }}",
+     method:"POST",
+     data:{_token:_token, page:page},
+     success:function(data)
+     {
+      $('#posts-crud').html(data);
+     }
+   });
+}
+
+});
+    </script>
 @endsection

@@ -18,7 +18,7 @@ class AjaxPostController extends Controller
     {
         $data['posts'] = Post::orderBy('id','desc')->paginate(8);
    
-        return view('index',$data);
+        return view('index',$data)->render();
     }
 
     /**

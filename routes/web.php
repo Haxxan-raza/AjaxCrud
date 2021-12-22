@@ -36,6 +36,9 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard',[App\Http\Controllers\AjaxPostController::class,'index'])->name('dashboard')->middleware('type');
+    Route::get('/pagination/fetch',[App\Http\Controllers\AjaxPostController::class,'fetch'])->name('pagination.fetch');;
+    
+
     Route::post('/store',[App\Http\Controllers\AjaxPostController::class,'store'])->name('store');
     Route::post('/edit/{id}',[App\Http\Controllers\AjaxPostController::class,'edit'])->name('edit');
     Route::delete('/delete/{id}',[App\Http\Controllers\AjaxPostController::class,'destroy'])->name('delete');
